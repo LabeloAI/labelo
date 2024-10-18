@@ -1,0 +1,46 @@
+.table-head {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  z-index: 150;
+  font-weight: 500;
+  position: sticky;
+  overflow: visible;
+  // background-color: #ddd;
+  background-color: #005ba7cc;
+  min-width: fit-content;
+  // font-size: 14px;
+  // border-bottom: 1px solid #D8D5DD;
+  border-radius: 10px 10px 0 0;
+  // border: 1px solid #ababab;
+
+  &__extra {
+    flex: 1;
+    display: flex;
+    padding-right: 14px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &__column-extra {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    color: white;
+  }
+
+  &__draggable {
+    --translatex: 0;
+    --translatey: 0;
+    transform: translate(var(--translatex), var(--translatey));
+    cursor: move;
+  }
+}
+
+.th:hover .table-head__column-extra {
+  opacity: 1;
+  pointer-events: all;
+}

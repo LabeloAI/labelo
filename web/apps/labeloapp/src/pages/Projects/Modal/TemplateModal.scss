@@ -1,0 +1,14 @@
+.clickable {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+.clickable:hover {
+  color: darkblue;
+  text-decoration: none;
+}
+
+.project-template:hover {
+  box-shadow: 0 0 0 1px #888;
+}

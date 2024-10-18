@@ -1,0 +1,116 @@
+.organization-settings {
+    .card {
+      margin: 0 auto;
+      padding: 24px;
+      max-width: 1200px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff; 
+    }
+  
+    .current-organization-card {
+      margin-top: 50px;
+      margin-bottom: 30px;
+
+      .ant-card-head-title {
+        font-size: 22px; 
+      }
+
+      .ant-card-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  
+    .organization-details-card {
+      margin-top: 50px;
+      margin-bottom: 40px;
+      .ant-card-head-title {
+        font-size: 22px; 
+      }
+      .ant-card-body {
+        padding: 24px;
+      }
+    }
+  
+    .current-organization-card .ant-card-body .input-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+  
+    .current-organization-card .ant-card-body .input-container label {
+      min-width: 200px;
+    //   margin-right: 10px;
+    //   text-align: right;
+    }
+  
+    .current-organization-card .ant-card-body .input-container input {
+      flex: 1;
+      height: 40px;
+    }
+  
+    .current-organization-card .ant-card-body .button-group {
+      display: flex;
+      font-size: 26px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+  
+    .current-organization-card .ant-card-body .button-group .ant-btn {
+      margin: 0 10px;
+    }
+  
+    .organization-details-card .ant-card-body {
+      padding: 8px;
+      display: flex;
+      font-size: 66px;
+      flex-direction: column;
+    }
+  
+    .organization-details-card .ant-table {
+      margin-top: 20px;
+      width: 100%;
+    }
+  
+    .organization-settings-table .ant-table-thead > tr > th {
+      background-color: #ebebeb;
+      font-weight: 500;
+      text-align: left;
+    }
+  
+    .organization-settings-table .ant-table-tbody > tr > td {
+      text-align: left;
+    }
+  
+    .ant-btn-primary {
+      background-color: #1890ff;
+      border-color: #1890ff;
+  
+      &:hover,
+      &:focus {
+        background-color: #40a9ff;
+        border-color: #40a9ff;
+      }
+    }
+  
+    .ant-btn-danger {
+      background-color: #ef2b2e;
+      border-color: #ff4d4f;
+  
+      &:hover,
+      &:focus {
+        background-color: #ff7875;
+        border-color: #ff7875;
+      }
+    }
+    .create-org-btn{
+        width: 230px;
+        max-width: 100%;
+    }
+
+  }
+  

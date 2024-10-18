@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+
+    font-family: "Sora", sans-serif;
+}
+
+.lb-heading {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 2.6rem;
+}
+
+.lb-form {
+    width: 55%;
+}
+
+.lb-input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    margin-top: 0.4rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s linear;
+
+
+}
+
+.lb-input:focus {
+    border-color: #0658CC;
+    outline: none;
+}
+
+.lb-label {
+    font-size: 0.84rem;
+    color: #090914;
+}
+
+.lb-checkbox-label {
+    font-size: 12px;
+    color: #18181B;
+}
+
+.lb-signbtn {
+    width: 100%;
+    border: 1px solid #076EFF;
+    color: #076EFF;
+    font-weight: 600;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    height: 46px;
+    transform: all 0.3s linear;
+    background-color: #fff;
+}
+
+.lb-signbtn:hover {
+    color: #0663E6;
+    border-color: #0663E6;
+    background-color: #E6F1FF;
+}
+
+.lb-signbtn:active,
+.lb-signbtn:focus {
+    background-color: #0658CC;
+    color: #fff;
+}
+
+.lb-sign_link {
+    color: #076EFF;
+    font-weight: 600;
+}
+
+.lb-sign_link:hover {
+    color: #0663E6;
+}
+
+.lb-signin {
+    background-color: #076EFF;
+    color: #fff;
+}
+
+.lb-signin:hover {
+    background-color: #0663E6;
+    color: #fff;
+}
+
+.lb-signin:active {
+    background-color: #0658CC;
+    color: #fff;
+}
+
+.lb-cardlayout_content {
+
+    padding: 2rem auto;
+}
+
+.lb-forgot_link {
+    font-size: 12px;
+    color: #076EFF;
+    margin-bottom: 1rem;
+    text-decoration: none;
+}
+
+.lb-forgot_link:hover {
+    color: #0663E6;
+}
+
+.lb-sign-banner {
+    background-color: #076EFF;
+    background: linear-gradient(#076EFF, #044299);
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.lb-sign-main {
+    height: 100vh;
+}
+
+.lb-welcomer_header {
+    color: #fff;
+    font-weight: 300;
+
+}
+
+.lb-sign-banner-desc {
+    color: #fff;
+    width: 55%;
+
+    padding: 0.2rem 0;
+
+}
+
+.lb-sign-banner-pattern {
+    bottom: -16px;
+    left: 0px;
+}
+
+
+
+
+@media(max-width:992px) {
+    .lb-form {
+        width: 80%;
+    }
+
+    .lb-sign-banner-desc {
+
+        width: 75%;
+
+    }
+
+}
+
+@media (max-width:768px) {
+    .lb-sign-banner {
+        text-align: left;
+        align-items: start;
+    }
+
+    .lb-sign-main {
+        height: auto;
+    }
+
+    .lb-sign-banner-desc {
+
+        width: 100%;
+
+    }
+    .lb-form {
+        width: 95%;
+    }
+
+
+}
+
+#name_error, #org_error,#email_error, #password_error, #re_password_error, #set_password_error, #re_set_password_error {
+    color: red;
+    margin-top: -12px;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.btn-disabled {
+    background-color: #d3d3d3; /* Light grey background */
+    color: #a9a9a9; /* Darker grey text */
+    border: 1px solid #a9a9a9; /* Border color */
+    cursor: not-allowed; /* Cursor style */
+    pointer-events: none; /* Disable mouse events */
+}
+
+.btn-enabled {
+    background-color: #007bff; /* Normal background color */
+    color: #fff; /* Normal text color */
+    border: 1px solid #007bff; /* Border color */
+    cursor: pointer; /* Cursor style */
+    pointer-events: auto; /* Enable mouse events */
+}
+
+.org-title {
+    margin-bottom: 40px;
+}
+
+#org-id {
+    color: blue;
+}
+
+.fg-btn {
+    width: 40%;
+    height: 38px;
+    margin-left: 28%;
+    border-radius: 25px
+}
+
+.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    bottom: 70px; /* Distance from the bottom */
+    right: 10px; /* Distance from the right */
+    left: 71%; /* Center horizontally */
+    transform: translateX(-50%); /* Offset the centering to the left by half of its width */
+    z-index: 9999;
+    width: 420px; /* Adjust width as needed */
+}
+.messages li {
+    display: none; /* Hide messages by default */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid;
+    border-radius: 18px;
+    opacity: 0; /* Start with opacity 0 for fade effect */
+    text-align: center;
+}
+.info {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f;
+}
+.success {
+    background-color: #dff0d8;
+    border-color: #d0e9c6;
+    color: #3c763d;
+}
+.warning {
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #8a6d3b;
+}
+.error {
+    background-color: #fff; /* White background for error */
+    border-color: rgb(252, 0, 0); /* Red border color */
+    color: rgb(252, 0, 0); /* Red text color */
+}
+.error i {
+  color: rgb(252, 0, 0); /* Red color for error icon */
+  display: inline; /* Show icon for error messages */
+}
+.fp-heading {
+  font-size: 2.5rem;
+}
+.fp-p1 {
+  color: #666564;
+}
+.fp-psd-label {
+  margin-top: 18px;
+}
+.fp-p2 {
+  color: #666564;
+  font-size: 0.7rem;
+  margin-top: 8px;
+}
+.fp-p3 {
+  color: #666564;
+  font-size: 0.7rem;
+  margin-top: 5px;
+  margin-bottom: 23px;
+}

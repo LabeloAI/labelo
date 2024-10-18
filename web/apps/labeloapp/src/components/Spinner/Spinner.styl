@@ -1,0 +1,14 @@
+.spinner
+  --spinner-size 50px
+
+  width var(--spinner-size)
+  height var(--spinner-size)
+  background url('/static/images/logo_loadings.png') no-repeat center center
+  background-size contain
+  animation spin-logo 2s infinite linear
+
+@keyframes spin-logo
+  0%
+    transform rotate(0deg)
+  100%
+    transform rotate(360deg)

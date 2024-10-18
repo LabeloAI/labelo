@@ -1,0 +1,108 @@
+{% extends 'users/user_base.html' %}
+{% load static %}
+
+{% block content %} 
+
+    <form id="activate-user" method="POST"
+    class="mx-auto py-md-5 lb-form">
+        {% csrf_token %}
+        <h1 class="lb-heading fp-heading">Verify your account</h1>
+        <p class="mb-0 fp-p1">To login, first set up a password:</p>
+
+        <div>
+            <label for="new_password1" class="d-block lb-label fp-psd-label">Password</label>
+            <input type="password" class="lb-input" name="new_password1" id="new_password1" >
+            <div id="set_password-errors" class="error-container"></div>
+        </div>
+
+        <div>
+            <p class="mb-0 fp-p2">
+                <i class="fa fa-info-circle info-icon" aria-hidden="true"></i> 
+                Please ensure your password meets the following requirements:
+            </p>
+            <ul class="activate-paragraph fp-p3">
+                <li>Can’t be similar to your personal information</li>
+                <li>Must contain at least 8 characters</li>
+                <li>Can’t be entirely numeric</li>
+                <li>Can’t be a commonly used password</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <label for="new_password2" class="d-block lb-label">Confirm your password</label>
+            <input type="password" name="new_password2" class="lb-input" id="new_password2">
+            <div id="re-password-errors" class="error-container"></div>
+        </div>
+
+        <button type="submit" class=" my-4 lb-signbtn" id="set-password">Set Password</button>
+        <div class="w-100 text-center mb-5">
+            <span class="lb-checkbox-label">Already have an account?<a href="{% url 'user-login' %}" class="lb-sign_link">Sign
+                    In</a></span>
+        </div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            {% if token_invalid %}
+                $('#set-password').prop('disabled', true).addClass('btn-disabled');
+                $('#new_password1').prop('disabled', true);
+                $('#new_password2').prop('disabled', true);
+            {% else %}
+                $('#set-password').prop('disabled', true).addClass('btn-disabled');
+
+                var validateSetPassword = function() {
+                    var valid = true;
+                    var set_password = $('#new_password1').val();
+                    var re_set_password = $('#new_password2').val();
+
+                    $('#set_password-errors').html("");
+                    $('#re-password-errors').html("");
+
+                    if (set_password.length < 8) {
+                        valid = false;
+                        $('#set_password-errors').append("<p id='set_password_error'>Password must contain at least 8 characters</p>");
+                    }
+
+                    if (set_password !== re_set_password) {
+                        valid = false;
+                        $('#re-password-errors').append("<p id='re_set_password_error'>Passwords do not match</p>");
+                    }
+
+                    return valid;
+                };
+
+                var checkSetConditions = function () {
+                    var valid = true;
+                    var set_password = $('#new_password1').val();
+                    var re_set_password = $('#new_password2').val();
+
+                    if (set_password.length < 8) {
+                        valid = false;
+                    }
+
+                    if (set_password !== re_set_password) {
+                        valid = false;
+                    }
+
+                    return valid;
+                };
+
+                var validateSetForm = function() {
+                    if (checkSetConditions()) {
+                        $('#set-password').prop('disabled', false).removeClass('btn-disabled').addClass('btn-enabled');
+                    } else {
+                        $('#set-password').prop('disabled', true).removeClass('btn-enabled').addClass('btn-disabled');
+                    }
+                };
+
+                $('#new_password1, #new_password2').on('input', function() {
+                    validateSetPassword();
+                    validateSetForm();
+                });
+            {% endif %}
+        });
+    </script>
+
+{% endblock %}

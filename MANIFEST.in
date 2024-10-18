@@ -1,0 +1,37 @@
+# react LSF / react-app with dm
+recursive-include web/dist/libs/editor *
+include web/dist/apps/labeloapp/*
+recursive-include web/dist/libs/datamanager/ *
+
+# html template files
+recursive-include labelo *.html
+
+# exclude node modules
+prune web/node_modules
+prune web/build-tmp
+
+# annotation templates
+recursive-include labelo/annotation_templates *
+
+# core
+recursive-include labelo/core/static *
+recursive-include labelo/core/static_build *
+include labelo/core/utils/schema/*.json
+include labelo/core/templatetags/*.py
+include labelo/core/version_.py
+include labelo/core/all_urls.json
+
+# io storages
+recursive-include labelo/io_storages *.yml
+
+# tests
+recursive-include labelo/tests *.sh
+recursive-include labelo/tests/loadtests *.txt
+recursive-include labelo/tests/test_data *.yml
+recursive-include labelo/tests/test_suites/samples *
+recursive-include labelo/tests/test_suites *.yml
+
+include labelo/pytest.ini
+
+# feature flags
+include labelo/feature_flags.json

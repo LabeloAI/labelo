@@ -1,0 +1,88 @@
+.annotation-settings
+  display: flex
+  flex-direction: column
+  padding: 20px
+  background-color: #f9f9f9
+  border-radius: 8px
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+  max-width: 1000px  
+  margin: 0 auto  
+  align-items: center  
+  transition: box-shadow 0.3s ease  
+
+  &__wrapper
+    width: 100%
+    max-width: 650px
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  &__header  
+    font-weight: 500
+    font-size: 16px
+    margin-bottom: 0
+    text-align: center
+
+  &__row
+    width: 100%  
+    margin-bottom: 20px
+    display: flex
+    flex-direction: column
+    align-items: center  
+
+  .toggle-label
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 8px
+    width: 100%  // Full width for toggle labels
+
+  .description
+    color: rgba(0, 0, 0, 0.6)
+    font-size: 0.875rem
+    margin: 8px 0
+    text-align: center  // Center align description text
+    line-height: 1.5  // Improved line height for readability
+
+  .divider
+    margin: 32px 0
+
+  .button-container
+    display: flex
+    justify-content: center  // Center align buttons
+    width: 100%  // Full width for button container
+    margin-top: 20px
+
+  .success-message
+    color: green
+    font-weight: bold
+    margin-bottom: 10px
+    opacity: 0  // Start hidden
+    transition: opacity 0.5s ease-in  // Smooth fade-in effect
+    &.visible
+      opacity: 1  // Show when active
+
+  .form-input
+    width: 100%  // Full width for input fields
+    max-width: 520px  // Ensure input fields don't exceed the max width of the container
+    padding: 10px
+    border: 1px solid #ccc
+    border-radius: 4px
+    margin-top: 8px
+    transition: border-color 0.3s ease  // Smooth transition for border color
+
+    &:focus
+      border-color: #007bff  // Change border color on focus
+
+  .radio-group
+    display: flex
+    flex-direction: column
+    margin-top: 8px
+
+    .radio-option
+      display: flex
+      align-items: center
+      margin-bottom: 8px
+
+      input[type="radio"]
+        margin-right: 10px

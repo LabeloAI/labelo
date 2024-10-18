@@ -1,0 +1,24 @@
+.project-dashboard {
+  background: var(--gray-2);
+  flex-grow: 1;
+  overflow-x: hidden;
+  padding: 20px 60px 20px 60px;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #eee;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #ccc;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(100,100,100,0.4); 
+}

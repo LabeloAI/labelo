@@ -1,0 +1,35 @@
+.custom-column {
+  border: 1px solid #ddd;
+  padding: 16px;
+  height: 300px; /* Adjust height as needed */
+  overflow-y: auto; /* Enable scrolling if content exceeds height */
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px; /* Increase space between items */
+  padding: 8px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
+
+  .member-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+}
+
+.button-space .ant-btn {
+  margin-bottom: 10px; /* Add space below each button */
+}

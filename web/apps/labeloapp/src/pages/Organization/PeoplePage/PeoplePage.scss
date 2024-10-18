@@ -1,0 +1,31 @@
+.invite {
+  .role-select {
+    padding: 0 40px 40px;
+
+    select {
+      width: 25%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      outline: none;
+      margin-top: 10px;
+
+      &.placeholder {
+        color: #a8a8a8;
+      }
+    }
+  }
+}
+
+.people {
+
+  &__controls {
+    padding: 16px 0px;
+    margin-bottom: 6px;
+  }
+
+  .heidy-tip {
+    max-width: 450px;
+  }
+}

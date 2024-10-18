@@ -1,0 +1,124 @@
+{% extends 'users/user_base.html' %}
+{% load i18n %}
+{% load static %}
+{% load filters %}
+
+{% block content %}
+
+    <form id="signup-form"
+    action="{% url 'user-invite' %}?{% if next %}&next={{ next }}{% endif %}{% if token %}&token={{ token }}{% endif %}"
+    method="post"
+    class="mx-auto py-md-5 lb-form"
+    >
+        {% csrf_token %}
+        
+        {% if organization%}
+         <h4 class="org-title lb-heading">You've been invited to join organization <b id="org-id">{{ organization }}</b></h4>
+        {% endif %}
+        
+        <div>
+            <label for="email" class="d-block lb-label">Email</label>
+            <input type="text" name="email" class="lb-input" id="email">
+            <div id="email-errors" class="error-container"></div>
+        </div>
+
+        <div>
+            <label for="password" class="d-block lb-label">Password</label>
+            <input type="password" name="password" class="lb-input" id="password">
+            <div id="password-errors" class="error-container"></div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions">
+            <label for="terms_and_conditions" class="lb-checkbox-label">I agree to the terms of
+                service</label>
+        </div>
+        <button type="submit" class=" my-4 lb-signbtn" id="submit-button">Sign Up</button>
+        <div class="w-100 text-center mb-5">
+            <span class="lb-checkbox-label">Already have an account?<a href="{% url 'user-login' %}" class="lb-sign_link">Sign
+                    In</a></span>
+        </div>
+
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            {% if token_invalid %}
+                $('#submit-button').prop('disabled', true).addClass('btn-disabled');
+                $('#email').prop('disabled', true);
+                $('#password').prop('disabled', true);
+                $('#terms_and_conditions').prop('disabled', true);
+            {% else %}
+                $('#submit-button').prop('disabled', true).addClass('btn-disabled');
+            
+            
+                var validateEmail = function() {
+                    var valid = true;
+                    var email = $('#email').val();
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+                    $('#email-errors').html("");
+            
+                    if (!emailRegex.test(email)) {
+                        valid = false;
+                        $('#email-errors').html("<p id='email_error'>Enter a valid email address.</p>");
+                    }
+            
+                    return valid;
+                };
+            
+                var validatePasswords = function() {
+                    var valid = true;
+                    var password = $('#password').val();
+            
+                    $('#password-errors').html("");
+            
+                    if (password.length < 8) {
+                        valid = false;
+                        $('#password-errors').html("<p id='password_error'>Password must be at least 8 characters long.</p>");
+                    }
+            
+                    return valid;
+                };
+            
+                var checkAllConditions = function() {
+                    var valid = true;
+            
+                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#email').val())) valid = false;
+                    if ($('#password').val().length < 8) valid = false;
+                    if (!$('#terms_and_conditions').is(':checked')) valid = false;
+            
+                    return valid;
+                };
+            
+                var validateForm = function() {
+                    if (checkAllConditions()) {
+                        $('#submit-button').prop('disabled', false).removeClass('btn-disabled').addClass('btn-enabled');
+                    } else {
+                        $('#submit-button').prop('disabled', true).removeClass('btn-enabled').addClass('btn-disabled');
+                    }
+                };
+                
+            
+            
+                $('#email').on('input', function() {
+                    validateEmail(); 
+                    validateForm();
+                });
+            
+                $('#password').on('input', function() {
+                    validatePasswords();
+                    validateForm();
+                });
+            
+                $('#terms_and_conditions').on('change', function() {
+                    validateForm();
+                });
+            {% endif %}
+        });
+        
+    </script>
+
+{% endblock %}

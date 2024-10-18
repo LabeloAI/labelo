@@ -1,0 +1,66 @@
+.danger-zone {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: 0 auto;
+  transition: box-shadow 0.3s ease;
+  align-items: center; // Center content horizontally
+
+  &__wrapper {
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+
+  &__header {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 0;
+    text-align: center; 
+    color: rgba(0, 0, 0, 0.8); 
+  }
+
+  .danger-label {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    text-align: center; // Center text horizontally
+    font-size: 20px; // Increase font size
+    color: rgba(0, 0, 0, 0.8); // Label text color
+    font-weight: bold; // Make text bold
+  }
+
+  .danger-description {
+    color: rgba(0, 0, 0, 0.9); 
+    font-size: 18px; // Increase font size
+    margin: 8px 0;
+    text-align: center; 
+    line-height: 1.5;
+    width: 100%; 
+    max-width: 600px; 
+    box-sizing: border-box; 
+    font-weight: bold; 
+  }
+
+  .danger-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+  }
+
+  .danger-button {
+    margin-top: 10px;
+    width: 100%; 
+    max-width: 300px;
+    align-items: center;
+    color: #f9f9f9;
+    background: rgb(228, 229, 230);
+  }
+}

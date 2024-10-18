@@ -1,0 +1,35 @@
+{% extends 'users/user_base.html' %}
+{% load i18n %}
+{% load static %}
+{% load filters %}
+
+{% block content %}
+
+    <form id="login-form" action="{% url 'user-login' %}{% if next %}?next={{ next }}{% endif %}" method="post" class="mx-auto py-md-5 lb-form">
+        {% csrf_token %}
+        <h2 class="lb-heading">Sign In</h2>
+
+        <div>
+            <label for="" class="d-block lb-label">Email</label>
+            <input type="text" class="lb-input" name="email" id="email" value="{{ form.data.email }}">
+        </div>
+        <div>
+            <label for="" class="d-block lb-label">Password</label>
+            <input type="password" class="lb-input" name="password" id="password" >
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <input type="checkbox" id="persist_session" name="persist_session" checked="checked">
+                <label for="" class="lb-checkbox-label">Remember me</label>
+            </div>
+            <a href="{% url 'password-reset' %}" class="lb-forgot_link">Forget password?</a>
+        </div>
+        <button class=" my-4 lb-signbtn lb-signin">Sign In</button>
+        <div class="w-100 text-center mt-3 mb-5" >
+            <span class="lb-checkbox-label">Don't have an Account?<a href="{% url 'user-signup' %}" class="lb-sign_link"> Sign
+                    Up</a></span>
+        </div>
+
+    </form>
+
+{% endblock %}
