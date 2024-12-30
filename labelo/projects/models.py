@@ -58,6 +58,10 @@ from tasks.models import (
     bulk_update_stats_project_tasks,
 )
 from data_import.models import FileUpload
+from pathlib import Path
+from django.utils._os import safe_join
+import posixpath
+from urllib.parse import unquote
 
 logger = logging.getLogger(__name__)
 
@@ -1561,3 +1565,141 @@ class ProjectReimport(models.Model):
 
     def has_permission(self, user):
         return self.project.has_permission(user)
+
+class ProjectThumbnail(models.Model):
+
+    project = models.ForeignKey('projects.Project', related_name='compressed_files', on_delete=models.CASCADE)
+    task = models.ForeignKey('tasks.Task', related_name='compressed_files', on_delete=models.CASCADE)
+    file = models.TextField(null=True)
+
+    # class Meta:
+    #     unique_together = ('project', 'task') 
+
+    def has_permission(self, user):
+        return self.project.has_permission(user)
+
+    @classmethod
+    def create_project_thumbnail(cls, task, project):
+        import mimetypes
+
+        if cls.objects.filter(project=project).count() >= 3:
+            return None
+        try :
+            file_path = cls.get_file_path(task)
+
+            if not file_path:
+                return None
+            
+            mime, _ = mimetypes.guess_type(file_path)
+            thumbnail = None
+            if cls.is_image_file(file_path):
+                thumbnail = cls.handle_image_compression(task, project, file_path)
+            else:
+                if not cls.objects.filter(project=project, task=task).exists():
+                    thumbnail = cls.objects.create(project=project, task=task, file=mime)
+
+            if thumbnail:
+                task.compressed = thumbnail
+                task.save()
+
+        except (IOError, SyntaxError) as e:
+            logger.error("Error processing file: %s", e)
+            return None
+        
+    @staticmethod
+    def is_image_file(file_path):
+        with open(file_path, 'rb') as file:
+            file_signature = file.read(8)
+            return file_signature.startswith((b'\xff\xd8\xff',
+                                            b'\x89PNG',
+                                            b'GIF87a',
+                                            b'GIF89a',
+                                            b'\x42\x4D'))    
+        
+    @classmethod
+    def handle_image_compression(cls, task, project, file_path):
+        """
+        Handles the compression of an image file. Returns the created ProjectThumbnail instance.
+        """
+        try:
+            with Image.open(file_path) as img:
+                img.verify() 
+
+            with Image.open(file_path) as img:
+                relative_compressed_path, compressed_img_path = cls.compress_image(project, file_path)
+                if relative_compressed_path and compressed_img_path:
+                    if not cls.objects.filter(project=project, task=task).exists():
+                        compressed = cls.objects.create(
+                            project=project,
+                            task=task,
+                            file=relative_compressed_path
+                        )
+                        return compressed
+
+        except Exception as e:
+            logger.error("Image compression failed: %s", e)
+            return None
+
+    
+    @staticmethod
+    def get_file_path(task):
+        """
+        Retrieve the file path from the task object. Returns the file path or None.
+        """
+
+        try:
+            image_path = next(iter(task.data.values()))
+            
+            if isinstance(image_path, str) and image_path.startswith('/data/local-files'):
+                path = image_path.split("d=")[1]
+                path = unquote(path)
+                path = posixpath.normpath(path).lstrip('/')
+ 
+                full_path = Path(safe_join(settings.LOCAL_FILES_DOCUMENT_ROOT, path))
+                
+                return full_path
+            
+            else:
+                return task.file_upload.file.path
+
+        except (AttributeError, StopIteration) as e:
+            logger.error("Error getting file path for task: %s", task)
+            logger.error("Exception: %s", str(e))
+            return None
+        
+    @staticmethod
+    def compress_image(project, file_path, base_dimension=200):
+        resize_filter = getattr(Image, 'ANTIALIAS', Image.LANCZOS)
+
+        try:
+            img = Image.open(file_path)
+            if img.mode in ('RGBA', 'LA') or (
+                    img.mode == 'P' and 'transparency' in img.info) or img.mode == 'P':
+                img = img.convert('RGB')
+
+            if img.size[0] > img.size[1]:
+                base_width = base_dimension
+                wpercent = (base_width / float(img.size[0]))
+                hsize = int((float(img.size[1]) * float(wpercent)))
+                img = img.resize((base_width, hsize), resize_filter)
+            else:
+                base_height = base_dimension
+                hpercent = (base_height / float(img.size[1]))
+                wsize = int((float(img.size[0]) * float(hpercent)))
+                img = img.resize((wsize, base_height), resize_filter)
+
+            compressed_img_name = f"{os.path.splitext(os.path.basename(file_path))[0]}_compressed.jpg"
+            compressed_dir = os.path.join(settings.MEDIA_ROOT,
+                                            settings.COMPRESSED_DIR,
+                                            str(project.id))
+            os.makedirs(compressed_dir, exist_ok=True)
+
+            compressed_img_path = os.path.join(compressed_dir,
+                                                compressed_img_name)
+            img.save(compressed_img_path, format="JPEG", quality=85)
+
+            relative_compressed_path = os.path.relpath(compressed_img_path,
+                                                        settings.MEDIA_ROOT)
+            return relative_compressed_path, compressed_img_path
+        except Exception as e:
+            return None, None
