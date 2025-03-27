@@ -17,4 +17,5 @@ export { ToggleItems } from "./ToggleItems/ToggleItems";
 export { Userpic } from "./Userpic/Userpic";
 export { VersionNotifier } from "./VersionNotifier/VersionNotifier";
 export { Pagination } from "./Pagination/Pagination";
+export { Layout } from "./Layout/Layout";
 
